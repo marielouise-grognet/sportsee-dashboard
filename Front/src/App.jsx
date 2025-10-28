@@ -3,7 +3,8 @@ import yoga from './assets/yoga.svg'
 import bike from './assets/bike.svg'
 import swim from './assets/swim.svg'
 import bodybuild from './assets/bodybuild.svg'
-import ActivityBarChart from './components/Activity'
+import ActivityBarChart from './components/ActivityBarChart'
+import Duration from './components/Duration'
 import { USER_MAIN_DATA } from '../../Back/app/data'
 
 function App() {
@@ -27,7 +28,10 @@ function App() {
                 <p>Félicitations ! Vous avez explosé vos objectifs hier</p>
             </div>
             <div className="graphs">
-                <ActivityBarChart userId={12}/>
+                <ActivityBarChart userId={12} />
+                <Duration userId={12} />
+
+                
             </div>
         </main>
     )
