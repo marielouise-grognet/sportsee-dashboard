@@ -28,10 +28,15 @@ function App() {
                 <p>Félicitations ! Vous avez explosé vos objectifs hier</p>
             </div>
             <div className="graphs">
-                <ActivityBarChart userId={12} />
-                <Duration userId={12} />
+                    <ActivityBarChart userId={12} />
 
-                
+                <div className="other-graphs">
+                    <Duration userId={12} />
+
+
+                </div>
+
+
             </div>
         </main>
     )

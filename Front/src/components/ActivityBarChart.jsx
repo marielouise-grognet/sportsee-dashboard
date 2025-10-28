@@ -46,7 +46,7 @@ function ActivityWeightChart({ userId }) {
     const ticks = Array.from({ length: 6 }, (_, i) => minValue + i * tickStep);
 
     return (
-        <div style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}>
+        <div className="daily-graph" >
             <h3 style={{ textAlign: 'center' }}>Activité quotidienne</h3>
 
             <BarChart
@@ -57,7 +57,6 @@ function ActivityWeightChart({ userId }) {
             >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                
                 {/* YAxis unique à droite avec ticks forcés */}
                 <YAxis
                     yAxisId="default"
