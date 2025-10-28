@@ -18,10 +18,10 @@ const CustomTooltip = ({ active, payload }) => {
 
         return (
             <div style={{
-                backgroundColor: '#fff',
+                backgroundColor:'#E60000',
                 padding: '10px',
-                borderRadius: '5px',
-                border: '1px solid #ccc'
+                border: '1px solid #ccc',
+                color : '#FFFFFF'
             }}>
                 <p>{`${kilogram}kg`}</p>
                 <p>{`${calories}kCal`}</p>
@@ -32,19 +32,26 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 function ActivityWeightChart({ userId }) {
-    // Trouve l’utilisateur
     const user = USER_ACTIVITY.find(u => u.userId === userId);
 
     if (!user) {
         return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
     }
 
-    // Prépare les données
     const data = user.sessions.map((session, index) => ({
-        name: `J${index + 1}`,
+        name: `${index + 1}`,
         kilogram: session.kilogram,
         calories: session.calories
     }));
+
+    // Calculer min et max avec marge pour que les ticks soient visibles
+    const allValues = data.flatMap(d => [d.kilogram, d.calories]);
+    const minValue = Math.floor(Math.min(...allValues) / 10) * 10 - 10;
+    const maxValue = Math.ceil(Math.max(...allValues) / 10) * 10 + 10;
+
+    // Générer 6 graduations uniformes
+    const tickStep = (maxValue - minValue) / 5;
+    const ticks = Array.from({ length: 6 }, (_, i) => minValue + i * tickStep);
 
     return (
         <div style={{ width: '100%', maxWidth: '600px', margin: 'auto' }}>
@@ -58,14 +65,20 @@ function ActivityWeightChart({ userId }) {
             >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                {/* Axe gauche : kilogram */}
-                <YAxis yAxisId="left" label={{ value: 'kg', angle: -90, position: 'insideLeft' }} />
-                {/* Axe droit : calories */}
-                <YAxis yAxisId="right" orientation="right" />
+                
+                {/* YAxis unique à droite avec ticks forcés */}
+                <YAxis
+                    yAxisId="default"
+                    orientation="right"
+                    type="number"
+                    ticks={ticks}
+                />
+
                 <Tooltip content={<CustomTooltip />} />
                 <Legend verticalAlign="top" height={36} />
+
                 <Bar
-                    yAxisId="left"
+                    yAxisId="default"
                     dataKey="kilogram"
                     name="Poids (kg)"
                     fill="#282D30"
@@ -73,7 +86,7 @@ function ActivityWeightChart({ userId }) {
                     radius={[3, 3, 0, 0]}
                 />
                 <Bar
-                    yAxisId="right"
+                    yAxisId="default"
                     dataKey="calories"
                     name="Calories (kCal)"
                     fill="#E60000"
