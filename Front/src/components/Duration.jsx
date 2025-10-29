@@ -19,7 +19,7 @@ function Duration({ userId }) {
 
     return (
         <div className="duration-graph">
-            <h2 style={{position:'absolute', color: '#FFFFFF', fontSize : 15, fontWeight:500, marginLeft :40, opacity:0.6 }}>Durée moyenne des sessions</h2>
+            <h2 style={{position:'absolute', color: '#FFFFFF', fontSize : 13, fontWeight:500, marginLeft :40, opacity:0.6 }}>Durée moyenne des sessions</h2>
 
 
             <ResponsiveContainer>

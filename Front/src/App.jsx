@@ -8,10 +8,11 @@ import Duration from './components/Duration'
 import Performance from './components/Performance'
 import Score from './components/Score'
 import { USER_MAIN_DATA } from '../../Back/app/data'
+import AllNutriments from './components/AllNutriments'
 
 function App() {
     // Récupérer l'utilisateur avec id 12
-    const user = USER_MAIN_DATA.find(u => u.id === 12)
+    const user = USER_MAIN_DATA.find(u => u.id === 18)
     const firstname = user?.userInfos?.firstName || 'Utilisateur'
 
     return (
@@ -25,23 +26,25 @@ function App() {
                 </ul>
                 <p className="copyright">Copyright SportSee2020</p>
             </div>
-            <div className="introduction">
-                <h1 className='Hello'>Bonjour {firstname}</h1>
-                <p>Félicitations ! Vous avez explosé vos objectifs hier</p>
-            </div>
-            <div className="graphs">
-                    <ActivityBarChart userId={12} />
+            <section className='main-content'>
+                <div className="introduction">
+                    <h1 className='Hello'>Bonjour {firstname}</h1>
+                    <p>Félicitations ! Vous avez explosé vos objectifs hier</p>
+                </div>
+                <div className="user-datas">
+                    <div className="graphs">
+                        <ActivityBarChart userId={18} />
 
-                <div className="other-graphs">
-                    <Duration userId={12} />
-                    <Performance userId={12} />
-                    <Score userId={12} />
-
+                        <div className="other-graphs">
+                            <Duration userId={18} />
+                            <Performance userId={18} />
+                            <Score userId={18} />
+                        </div>
+                    </div>
+                        <AllNutriments userId={18} />
 
                 </div>
-
-
-            </div>
+            </section>
         </main>
     )
 }

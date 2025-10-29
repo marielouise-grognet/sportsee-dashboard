@@ -1,4 +1,4 @@
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 import { USER_ACTIVITY } from '../../../Back/app/data.js';
 
@@ -48,43 +48,21 @@ function ActivityWeightChart({ userId }) {
     return (
         <div className="daily-graph" >
             <h3 style={{ textAlign: 'center' }}>Activité quotidienne</h3>
+<ResponsiveContainer width="100%" height={300}>
+  <BarChart
+      data={data}
+      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+  >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis yAxisId="default" orientation="right" type="number" ticks={ticks} />
+      <Tooltip content={<CustomTooltip />} />
+      <Legend verticalAlign="top" height={36} />
+      <Bar yAxisId="default" dataKey="kilogram" name="Poids (kg)" fill="#282D30" barSize={7} radius={[3,3,0,0]} />
+      <Bar yAxisId="default" dataKey="calories" name="Calories (kCal)" fill="#E60000" barSize={7} radius={[3,3,0,0]} />
+  </BarChart>
+</ResponsiveContainer>
 
-            <BarChart
-                width={600}
-                height={300}
-                data={data}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                {/* YAxis unique à droite avec ticks forcés */}
-                <YAxis
-                    yAxisId="default"
-                    orientation="right"
-                    type="number"
-                    ticks={ticks}
-                />
-
-                <Tooltip content={<CustomTooltip />} />
-                <Legend verticalAlign="top" height={36} />
-
-                <Bar
-                    yAxisId="default"
-                    dataKey="kilogram"
-                    name="Poids (kg)"
-                    fill="#282D30"
-                    barSize={7}
-                    radius={[3, 3, 0, 0]}
-                />
-                <Bar
-                    yAxisId="default"
-                    dataKey="calories"
-                    name="Calories (kCal)"
-                    fill="#E60000"
-                    barSize={7}
-                    radius={[3, 3, 0, 0]}
-                />
-            </BarChart>
         </div>
     );
 }
