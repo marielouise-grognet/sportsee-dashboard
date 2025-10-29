@@ -19,7 +19,7 @@ function Duration({ userId }) {
 
     return (
         <div className="duration-graph">
-                                <p className="session-duration">Durée moyenne des sessions</p>
+            <p className="session-duration">Durée moyenne des sessions</p>
             <ResponsiveContainer>
                 <AreaChart
                     data={data}
