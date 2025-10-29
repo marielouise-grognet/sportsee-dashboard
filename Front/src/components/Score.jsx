@@ -1,0 +1,98 @@
+import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts';
+import { USER_MAIN_DATA } from '../../../Back/app/data.js';
+
+function Score({ userId }) {
+  // 1️⃣ Trouver l'utilisateur
+  const user = USER_MAIN_DATA.find(u => u.id === userId);
+
+  if (!user) {
+    return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
+  }
+
+  // 2️⃣ Récupérer le bon champ de score
+  const score = user.todayScore ?? user.score;
+
+  // 3️⃣ Préparer les données du graphique
+  const data = [
+    {
+      name: 'Score',
+      value: score * 100,
+      fill: '#FF0000', // couleur de la barre
+    },
+  ];
+
+  // 4️⃣ Rendu
+  return (
+    <div
+      style={{
+        width: 258,
+        height: 263,
+        backgroundColor: '#FBFBFB', 
+        borderRadius: 10,
+        position: 'relative', // pour centrer le texte
+      }}
+    >
+      <h2
+        style={{
+          position: 'absolute',
+          top: 15,
+          left: 30,
+          fontSize: 15,
+          fontWeight:500,
+          color: '#20253A',
+        }}
+      >
+        Score
+      </h2>
+
+      <ResponsiveContainer width="100%" height="100%">
+        <RadialBarChart
+          cx="50%"
+          cy="50%"
+          innerRadius="70%"
+          outerRadius="80%"
+          barSize={10}
+          data={data}
+          startAngle={90}
+          endAngle={450 * score} // arc proportionnel au score
+        >
+          {/* Fond du cercle (gris clair) */}
+          <RadialBar
+            dataKey="value"
+            background
+            clockWise
+            cornerRadius={10}
+          />
+        </RadialBarChart>
+      </ResponsiveContainer>
+
+      {/* ✅ Contenu blanc au centre */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          textAlign: 'center',
+          backgroundColor: '#FFFFFF', // cercle blanc au centre
+          borderRadius: '50%',
+          width: '175px',
+          height: '175px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <p style={{ fontSize: 30, fontWeight: 'bold', margin: 0 }}>
+          {score * 100}%
+        </p>
+        <p style={{ fontSize: 20, color: '#74798C', margin: 0, paddingLeft:40, paddingRight:40 }}>
+          de votre objectif
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default Score;

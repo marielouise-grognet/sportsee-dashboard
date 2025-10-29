@@ -6,6 +6,7 @@ import bodybuild from './assets/bodybuild.svg'
 import ActivityBarChart from './components/ActivityBarChart'
 import Duration from './components/Duration'
 import Performance from './components/Performance'
+import Score from './components/Score'
 import { USER_MAIN_DATA } from '../../Back/app/data'
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
                 <div className="other-graphs">
                     <Duration userId={12} />
                     <Performance userId={12} />
+                    <Score userId={12} />
 
 
                 </div>
