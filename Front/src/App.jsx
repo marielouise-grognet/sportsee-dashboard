@@ -1,4 +1,5 @@
 import './sass/app.scss'
+import { useParams } from 'react-router-dom'
 import yoga from './assets/yoga.svg'
 import bike from './assets/bike.svg'
 import swim from './assets/swim.svg'
@@ -11,7 +12,9 @@ import { USER_MAIN_DATA } from '../../Back/app/data'
 import AllNutriments from './components/AllNutriments'
 
 function App() {
-    const user = USER_MAIN_DATA.find(u => u.id === 18)
+    const { id } = useParams() // récupère l'id depuis l'URL
+    const userId = parseInt(id, 10)
+    const user = USER_MAIN_DATA.find(u => u.id === userId)
     const firstname = user?.userInfos?.firstName || 'Utilisateur'
 
     return (
@@ -32,16 +35,15 @@ function App() {
                 </div>
                 <div className="user-datas">
                     <div className="graphs">
-                        <ActivityBarChart userId={18} />
+                        <ActivityBarChart userId={userId} />
 
                         <div className="other-graphs">
-                            <Duration userId={18} />
-                            <Performance userId={18} />
-                            <Score userId={18} />
+                            <Duration userId={userId} />
+                            <Performance userId={userId} />
+                            <Score userId={userId} />
                         </div>
                     </div>
-                        <AllNutriments userId={18} />
-
+                    <AllNutriments userId={userId} />
                 </div>
             </section>
         </main>
