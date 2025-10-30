@@ -11,7 +11,6 @@ import { USER_MAIN_DATA } from '../../Back/app/data'
 import AllNutriments from './components/AllNutriments'
 
 function App() {
-    // Récupérer l'utilisateur avec id 12
     const user = USER_MAIN_DATA.find(u => u.id === 18)
     const firstname = user?.userInfos?.firstName || 'Utilisateur'
 

@@ -2,26 +2,23 @@ import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts';
 import { USER_MAIN_DATA } from '../../../Back/app/data.js';
 
 function Score({ userId }) {
-    // 1️⃣ Trouver l'utilisateur
     const user = USER_MAIN_DATA.find(u => u.id === userId);
 
     if (!user) {
         return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
     }
 
-    // 2️⃣ Récupérer le bon champ de score
     const score = user.todayScore ?? user.score;
 
-    // 3️⃣ Préparer les données du graphique
     const data = [
         {
             name: 'Score',
             value: score * 100,
-            fill: '#FF0000', // couleur de la barre
+            fill: '#FF0000', 
         },
     ];
 
-    // 4️⃣ Rendu
+
     return (
         <div className='score-graph'>
             <h2
@@ -46,9 +43,9 @@ function Score({ userId }) {
                     barSize={10}
                     data={data}
                     startAngle={90}
-                    endAngle={450 * score} // arc proportionnel au score
+                    endAngle={450 * score} 
                 >
-                    {/* Fond du cercle (gris clair) */}
+
                     <RadialBar
                         dataKey="value"
                         background
@@ -58,7 +55,7 @@ function Score({ userId }) {
                 </RadialBarChart>
             </ResponsiveContainer>
 
-            {/* ✅ Contenu blanc au centre */}
+
             <div
                 style={{
                     position: 'absolute',
@@ -66,7 +63,7 @@ function Score({ userId }) {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     textAlign: 'center',
-                    backgroundColor: '#FFFFFF', // cercle blanc au centre
+                    backgroundColor: '#FFFFFF', 
                     borderRadius: '50%',
                     width: '115px',
                     height: '115px',

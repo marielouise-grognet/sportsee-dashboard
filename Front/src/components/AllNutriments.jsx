@@ -15,10 +15,8 @@ function AllNutriments({ userId }) {
         return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
     }
 
-    // On récupère les données des nutriments
     const keyData = user.keyData;
 
-    // Tu peux aussi formater les noms ici si tu veux les afficher en français
     const nutrimentsLabels = {
         calorieCount: 'Calories',
         proteinCount: 'Protéines',
@@ -40,8 +38,7 @@ function AllNutriments({ userId }) {
         lipidCount: fatIcon,
     };
 
-    // On transforme l’objet en tableau pour le parcourir
-    const nutrimentsArray = Object.entries(keyData); // [["calorieCount", 1930], ["proteinCount", 155], ...]
+    const nutrimentsArray = Object.entries(keyData); 
 
     return (
         <div className="nutriments-container">

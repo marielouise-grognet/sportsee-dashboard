@@ -19,16 +19,16 @@ function Performance({ userId }) {
         intensity: 'Intensité'
     };
 
-    // 2️⃣ Reformater les données pour le RadarChart
+
     const data = user.data.map(item => ({
-        subject: kindLabelsFR[user.kind[item.kind]], // ex: "cardio"
-        value: item.value,              // ex: 80
+        subject: kindLabelsFR[user.kind[item.kind]], 
+        value: item.value,              
     }));
 
     const shiftedData = [data[data.length - 1], ...data.slice(0, -1)];
 
 
-    // 3️⃣ Composant du graphique
+
     return (
         <div className="performance-graph">
             <ResponsiveContainer>
@@ -37,12 +37,12 @@ function Performance({ userId }) {
                     outerRadius="70%"
                     margin={{ top: 10, right: 20, bottom: 10, left: 20 }}
                 >
-                    <PolarGrid radialLines={false} /> {/* grille circulaire sans lignes radiales */}
+                    <PolarGrid radialLines={false} /> 
                     <PolarAngleAxis
                         dataKey="subject"
                         tick={{ fill: '#fff', fontSize: 11 }}
                     />
-                    <PolarRadiusAxis tick={false} axisLine={false} /> {/* pas de ticks */}
+                    <PolarRadiusAxis tick={false} axisLine={false} /> 
                     <Radar
                         dataKey="value"
                         stroke="#FF0101"

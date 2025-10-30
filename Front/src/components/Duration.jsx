@@ -30,13 +30,12 @@ function Duration({ userId }) {
 
 
                     <defs>
-                        {/* Dégradé pour la ligne */}
+
                         <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.2} /> {/* début transparent */}
-                            <stop offset="100%" stopColor="#FFFFFF" stopOpacity={1} />   {/* fin opaque */}
+                            <stop offset="0%" stopColor="#FFFFFF" stopOpacity={0.2} /> 
+                            <stop offset="100%" stopColor="#FFFFFF" stopOpacity={1} />   
                         </linearGradient>
 
-                        {/* Dégradé pour le remplissage sous la ligne (optionnel) */}
                         <linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="0%" stopColor="#FF0000" stopOpacity={0.2} />
                             <stop offset="100%" stopColor="#FF0000" stopOpacity={0.8} />
@@ -49,16 +48,16 @@ function Duration({ userId }) {
                         tick={{ fill: '#FFFFFF', fontSize: 10 }}
                         interval={0}
                         width="258"
-                        padding={{ left: 10, right: 10 }} // ← ici tu ajoutes du padding
+                        padding={{ left: 10, right: 10 }} 
                     />
 
                     <Tooltip />
                     <Area
                         type="monotone"
                         dataKey="duration"
-                        stroke="url(#lineGradient)"   // applique le dégradé à la ligne
-                        strokeWidth={3}               // épaisseur
-                        fill="url(#fillGradient)"     // remplissage sous la ligne
+                        stroke="url(#lineGradient)"   
+                        strokeWidth={3}               
+                        fill="url(#fillGradient)"     
                         activeDot={{ r: 4 }}
                     />
                 </AreaChart>
