@@ -1,69 +1,169 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-import { USER_ACTIVITY } from '../../../Back/app/data.js';
+import { USER_ACTIVITY } from "../../../Back/app/data.js";
 
 const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-        const kilogram = payload.find(p => p.dataKey === 'kilogram')?.value;
-        const calories = payload.find(p => p.dataKey === 'calories')?.value;
+  if (active && payload && payload.length) {
+    const kilogram = payload.find((p) => p.dataKey === "kilogram")?.value;
+    const calories = payload.find((p) => p.dataKey === "calories")?.value;
 
-        return (
-            <div style={{
-                backgroundColor: '#E60000',
-                padding: '10px',
-                border: '1px solid #ccc',
-                color: '#FFFFFF'
-            }}>
-                <p>{`${kilogram}kg`}</p>
-                <p>{`${calories}kCal`}</p>
-            </div>
-        );
-    }
-    return null;
+    return (
+      <div
+        style={{
+          backgroundColor: "#E60000",
+          padding: "8px",
+          border: "none",
+          color: "#FFFFFF",
+          fontSize: "0.75rem",
+          lineHeight: "1.2rem",
+          textAlign: "center",
+        }}
+      >
+        <p>{`${kilogram}kg`}</p>
+        <p>{`${calories}kCal`}</p>
+      </div>
+    );
+  }
+  return null;
 };
 
 function ActivityWeightChart({ userId }) {
-    const user = USER_ACTIVITY.find(u => u.userId === userId);
+  const user = USER_ACTIVITY.find((u) => u.userId === userId);
 
-    if (!user) {
-        return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-    }
+  if (!user) {
+    return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
+  }
 
-    const data = user.sessions.map((session, index) => ({
-        name: `${index + 1}`,
-        kilogram: session.kilogram,
-        calories: session.calories
-    }));
+  const data = user.sessions.map((session, index) => ({
+    day: `${index + 1}`,
+    kilogram: session.kilogram,
+    calories: session.calories,
+  }));
 
+  return (
+    <div className="daily-graph" style={{ position: "relative" }}>
+      {/* Titre + légende alignés */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 10,
+          padding: "0 30px",
+        }}
+      >
+        <h3
+          style={{
+            textAlign: "left",
+            fontSize: 15,
+            fontWeight: 500,
+            margin: 0,
+          }}
+        >
+          Activité quotidienne
+        </h3>
 
-    const allValues = data.flatMap(d => [d.kilogram, d.calories]);
-    const minValue = Math.floor(Math.min(...allValues) / 10) * 10 - 10;
-    const maxValue = Math.ceil(Math.max(...allValues) / 10) * 10 + 10;
+        {/* Légendes manuelles à droite */}
+        <ul
+          style={{
+            display: "flex",
+            gap: "20px",
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+            fontSize: 12,
+            color: "#74798C",
+          }}
+        >
+          <li style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <svg height={8} width={8}>
+              <circle cx="4" cy="4" r="4" fill="#282D30"></circle>
+            </svg>
+            Poids (kg)
+          </li>
+          <li style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <svg height={8} width={8}>
+              <circle cx="4" cy="4" r="4" fill="#E60000"></circle>
+            </svg>
+            Calories brûlées (kCal)
+          </li>
+        </ul>
+      </div>
 
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={data}
+          barSize={8}
+          barGap={8}
+          barCategoryGap="30%"
+          margin={{ top: 10, right: 20, left: 20, bottom: 16 }}
+        >
+          <defs>
+            <clipPath id="clip-grid">
+              <rect x="30" y="0" width="90%" height="100%" />
+            </clipPath>
+          </defs>
 
-    const tickStep = (maxValue - minValue) / 5;
-    const ticks = Array.from({ length: 6 }, (_, i) => minValue + i * tickStep);
+          <CartesianGrid
+            horizontal={true}
+            vertical={false}
+            stroke="#DEDEDE"
+            strokeDasharray="2 2"
+            strokeWidth="1px"
+            syncWithTicks={true}
+            clipPath="url(#clip-grid)"
+          />
 
-    return (
-        <div className="daily-graph" >
-            <h3 style={{ textAlign: 'left', fontSize:15, fontWeight:500, paddingLeft:30 }}>Activité quotidienne</h3>
-            <ResponsiveContainer width="100%" height={300}>
-                <BarChart
-                    data={data}
-                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis yAxisId="default" orientation="right" type="number" ticks={ticks} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend verticalAlign="top" height={36} />
-                    <Bar yAxisId="default" dataKey="kilogram" name="Poids (kg)" fill="#282D30" barSize={7} radius={[3, 3, 0, 0]} />
-                    <Bar yAxisId="default" dataKey="calories" name="Calories (kCal)" fill="#E60000" barSize={7} radius={[3, 3, 0, 0]} />
-                </BarChart>
-            </ResponsiveContainer>
+          <XAxis
+            dataKey="day"
+            tickLine={false}
+            stroke="#9B9EAC"
+            tickMargin={16}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            stroke="#9B9EAC"
+            dataKey="kilogram"
+            domain={["dataMin - 2", "dataMax + 2"]}
+            allowDecimals={false}
+            tickLine={false}
+            axisLine={false}
+            tickMargin={24}
+          />
+          <Tooltip
+            cursor={{ fill: "rgba(196, 196, 196, 0.5)" }}
+            content={<CustomTooltip />}
+          />
+          {/* On désactive la légende Recharts native */}
+          {/* <Legend /> */}
 
-        </div>
-    );
+          <Bar
+            yAxisId="right"
+            dataKey="kilogram"
+            name="Poids (kg)"
+            fill="#282D30"
+            radius={[3, 3, 0, 0]}
+          />
+          <Bar
+            dataKey="calories"
+            name="Calories brûlées (kCal)"
+            fill="#E60000"
+            radius={[3, 3, 0, 0]}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
 }
 
 export default ActivityWeightChart;

@@ -14,7 +14,7 @@ function Score({ userId }) {
         {
             name: 'Score',
             value: score * 100,
-            fill: '#FF0000', 
+            fill: '#FF0000',
         },
     ];
 
@@ -43,7 +43,8 @@ function Score({ userId }) {
                     barSize={10}
                     data={data}
                     startAngle={90}
-                    endAngle={450 * score} 
+                    endAngle={90 + 360 * score}
+
                 >
 
                     <RadialBar
@@ -63,7 +64,7 @@ function Score({ userId }) {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     textAlign: 'center',
-                    backgroundColor: '#FFFFFF', 
+                    backgroundColor: '#FFFFFF',
                     borderRadius: '50%',
                     width: '115px',
                     height: '115px',
