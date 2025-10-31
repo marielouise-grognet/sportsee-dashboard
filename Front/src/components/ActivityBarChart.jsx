@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -5,11 +6,9 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   ResponsiveContainer,
 } from "recharts";
-
-import { USER_ACTIVITY } from "../../../Back/app/data.js";
+import { getUserActivity } from "../services/apiService"; // <-- Service API
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -36,22 +35,38 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-function ActivityWeightChart({ userId }) {
-  const user = USER_ACTIVITY.find((u) => u.userId === userId);
+function ActivityBarChart({ userId }) {
+  const [userActivity, setUserActivity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!user) {
-    return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getUserActivity(userId);
+        setUserActivity(data.data);
+      } catch (err) {
+        console.error(err);
+        setError("Impossible de récupérer les données");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [userId]);
 
-  const data = user.sessions.map((session, index) => ({
-    day: `${index + 1}`,
-    kilogram: session.kilogram,
-    calories: session.calories,
+  if (loading) return <p>Chargement...</p>;
+  if (error) return <p>{error}</p>;
+  if (!userActivity?.sessions?.length) return <p>Aucune donnée disponible</p>;
+
+  const data = userActivity.sessions.map((s, i) => ({
+    day: `${i + 1}`,
+    kilogram: s.kilogram,
+    calories: s.calories,
   }));
 
   return (
     <div className="daily-graph" style={{ position: "relative" }}>
-      {/* Titre + légende alignés */}
       <div
         style={{
           display: "flex",
@@ -61,18 +76,9 @@ function ActivityWeightChart({ userId }) {
           padding: "0 30px",
         }}
       >
-        <h3
-          style={{
-            textAlign: "left",
-            fontSize: 15,
-            fontWeight: 500,
-            margin: 0,
-          }}
-        >
+        <h3 style={{ textAlign: "left", fontSize: 15, fontWeight: 500, margin: 0 }}>
           Activité quotidienne
         </h3>
-
-        {/* Légendes manuelles à droite */}
         <ul
           style={{
             display: "flex",
@@ -123,12 +129,7 @@ function ActivityWeightChart({ userId }) {
             clipPath="url(#clip-grid)"
           />
 
-          <XAxis
-            dataKey="day"
-            tickLine={false}
-            stroke="#9B9EAC"
-            tickMargin={16}
-          />
+          <XAxis dataKey="day" tickLine={false} stroke="#9B9EAC" tickMargin={16} />
           <YAxis
             yAxisId="right"
             orientation="right"
@@ -140,30 +141,14 @@ function ActivityWeightChart({ userId }) {
             axisLine={false}
             tickMargin={24}
           />
-          <Tooltip
-            cursor={{ fill: "rgba(196, 196, 196, 0.5)" }}
-            content={<CustomTooltip />}
-          />
-          {/* On désactive la légende Recharts native */}
-          {/* <Legend /> */}
+          <Tooltip cursor={{ fill: "rgba(196, 196, 196, 0.5)" }} content={<CustomTooltip />} />
 
-          <Bar
-            yAxisId="right"
-            dataKey="kilogram"
-            name="Poids (kg)"
-            fill="#282D30"
-            radius={[3, 3, 0, 0]}
-          />
-          <Bar
-            dataKey="calories"
-            name="Calories brûlées (kCal)"
-            fill="#E60000"
-            radius={[3, 3, 0, 0]}
-          />
+          <Bar yAxisId="right" dataKey="kilogram" name="Poids (kg)" fill="#282D30" radius={[3, 3, 0, 0]} />
+          <Bar dataKey="calories" name="Calories brûlées (kCal)" fill="#E60000" radius={[3, 3, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-export default ActivityWeightChart;
+export default ActivityBarChart;

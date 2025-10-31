@@ -1,21 +1,43 @@
-import { USER_MAIN_DATA } from '../../../Back/app/data.js';
 import Nutriment from './Nutriment.jsx'
 import fatIcon from '../assets/fat-icon.svg'
 import carbIcon from '../assets/carbs-icon.svg'
 import proteinIcon from '../assets/protein-icon.svg'
 import caloriesIcon from '../assets/calories-icon.svg'
+import { useEffect, useState } from "react";
+import { getUserMainData } from "../services/apiService"; // <-- Service API
+
 
 
 
 
 function AllNutriments({ userId }) {
-    const user = USER_MAIN_DATA.find(u => u.id === userId);
+    const [userMainData, setUserMainData] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-    if (!user) {
-        return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getUserMainData(userId)
+                setUserMainData(data.data)
+            }
+            catch (err) {
+                console.error(err)
+                setError('Impossible de récupérer les données')
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchData()
+    },[userId])
 
-    const keyData = user.keyData;
+
+    if (loading) return <p>Chargement...</p>;
+      if (error) return <p>{error}</p>;
+      if (!userMainData) return <p>Aucune donnée disponible</p>;
+
+
+    const keyData = userMainData.keyData;
 
     const nutrimentsLabels = {
         calorieCount: 'Calories',
@@ -25,10 +47,10 @@ function AllNutriments({ userId }) {
     };
 
     const nutrimentsUnities = {
-        calorieCount :'kCal',
-        proteinCount :'g',
-        carbohydrateCount :'g',
-        lipidCount:'g',
+        calorieCount: 'kCal',
+        proteinCount: 'g',
+        carbohydrateCount: 'g',
+        lipidCount: 'g',
     }
 
     const nutrimentsIcons = {
@@ -38,7 +60,7 @@ function AllNutriments({ userId }) {
         lipidCount: fatIcon,
     };
 
-    const nutrimentsArray = Object.entries(keyData); 
+    const nutrimentsArray = Object.entries(keyData);
 
     return (
         <div className="nutriments-container">

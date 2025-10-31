@@ -1,14 +1,11 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { USER_PERFORMANCE } from '../../../Back/app/data.js';
+import { useEffect, useState } from "react";
+import { getUserPerformance } from "../services/apiService";
 
 function Performance({ userId }) {
-    // 1️⃣ Trouver l'utilisateur correspondant
-    const user = USER_PERFORMANCE.find(u => u.userId === userId);
-
-    if (!user) {
-        return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-    }
-
+    const [userPerformance, setUserPerformance] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
     const kindLabelsFR = {
         cardio: 'Cardio',
@@ -20,9 +17,30 @@ function Performance({ userId }) {
     };
 
 
-    const data = user.data.map(item => ({
-        subject: kindLabelsFR[user.kind[item.kind]], 
-        value: item.value,              
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getUserPerformance(userId);
+                setUserPerformance(data.data);
+            } catch (err) {
+                console.error(err);
+                setError("Impossible de récupérer les données");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [userId]);
+
+    if (loading) return <p>Chargement...</p>;
+    if (error) return <p>{error}</p>;
+    if (!userPerformance?.data?.length) return <p>Aucune donnée disponible</p>;
+
+
+
+    const data = userPerformance.data.map(item => ({
+        subject: kindLabelsFR[userPerformance.kind[item.kind]],
+        value: item.value,
     }));
 
     const shiftedData = [data[data.length - 1], ...data.slice(0, -1)];
@@ -37,12 +55,12 @@ function Performance({ userId }) {
                     outerRadius="70%"
                     margin={{ top: 10, right: 20, bottom: 10, left: 20 }}
                 >
-                    <PolarGrid radialLines={false} /> 
+                    <PolarGrid radialLines={false} />
                     <PolarAngleAxis
                         dataKey="subject"
                         tick={{ fill: '#fff', fontSize: 11 }}
                     />
-                    <PolarRadiusAxis tick={false} axisLine={false} /> 
+                    <PolarRadiusAxis tick={false} axisLine={false} />
                     <Radar
                         dataKey="value"
                         stroke="#FF0101"

@@ -1,14 +1,37 @@
 import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts';
-import { USER_MAIN_DATA } from '../../../Back/app/data.js';
+import { useEffect, useState } from "react";
+import { getUserMainData } from "../services/apiService"; 
+
 
 function Score({ userId }) {
-    const user = USER_MAIN_DATA.find(u => u.id === userId);
+    const [userScore, setUserScore] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-    if (!user) {
-        return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-    }
+    useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const data = await getUserMainData(userId);
+                    setUserScore(data.data);
+                } catch (err) {
+                    console.error(err);
+                    setError("Impossible de récupérer les données");
+                } finally {
+                    setLoading(false);
+                }
+            };
+            fetchData();
+        }, [userId]);
+    
+        if (loading) return <p>Chargement...</p>;
+        if (error) return <p>{error}</p>;
+        if (!userScore) return <p>Aucune donnée disponible</p>;
 
-    const score = user.todayScore ?? user.score;
+
+
+
+    const score = userScore.todayScore ?? userScore.score;
+
 
     const data = [
         {
@@ -17,6 +40,7 @@ function Score({ userId }) {
             fill: '#FF0000',
         },
     ];
+
 
 
     return (
@@ -84,5 +108,6 @@ function Score({ userId }) {
         </div>
     );
 }
+                
 
 export default Score;

@@ -1,16 +1,34 @@
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
-import { USER_AVERAGE_SESSIONS } from '../../../Back/app/data.js';
+import { useEffect, useState } from "react";
+import { getUserAverageSessions } from "../services/apiService"; 
 
 function Duration({ userId }) {
-    const user = USER_AVERAGE_SESSIONS.find(u => u.userId === userId);
+    const [userDuration, setUserDuration] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const jours = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 
-    if (!user) {
-        return <p>Aucune donnée trouvée pour l’utilisateur {userId}</p>;
-    }
+          useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const data = await getUserAverageSessions(userId);
+            setUserDuration(data.data);
+          } catch (err) {
+            console.error(err);
+            setError("Impossible de récupérer les données");
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchData();
+      }, [userId]);
+    
+      if (loading) return <p>Chargement...</p>;
+      if (error) return <p>{error}</p>;
+      if (!userDuration?.sessions?.length) return <p>Aucune donnée disponible</p>;
 
-    const data = user.sessions.map((session, index) => ({
+
+    const data = userDuration.sessions.map((session, index) => ({
         name: jours[index],
         duration: session.sessionLength
     }));
