@@ -30,7 +30,7 @@ function App() {
             </div>
             <section className='main-content'>
                 <div className="introduction">
-                    <h1 className='Hello'>Bonjour {firstname}</h1>
+                    <h1 className='Hello'>Bonjour <span style={{ color: "red" }}>{firstname}</span></h1>
                     <p>Félicitations ! Vous avez explosé vos objectifs hier</p>
                 </div>
                 <div className="user-datas">

@@ -3,10 +3,8 @@ import fatIcon from '../assets/fat-icon.svg'
 import carbIcon from '../assets/carbs-icon.svg'
 import proteinIcon from '../assets/protein-icon.svg'
 import caloriesIcon from '../assets/calories-icon.svg'
-import { useEffect, useState } from "react";
-import { getUserMainData } from "../services/apiService"; // <-- Service API
-
-
+import { useEffect, useState } from "react"
+import { getUserMainData } from "../services/apiService"
 
 
 
@@ -29,15 +27,15 @@ function AllNutriments({ userId }) {
             }
         }
         fetchData()
-    },[userId])
+    }, [userId])
 
 
-    if (loading) return <p>Chargement...</p>;
-      if (error) return <p>{error}</p>;
-      if (!userMainData) return <p>Aucune donnée disponible</p>;
+    if (loading) return <p>Chargement...</p>
+    if (error) return <p>{error}</p>
+    if (!userMainData) return <p>Aucune donnée disponible</p>
 
 
-    const keyData = userMainData.keyData;
+    const keyData = userMainData.keyData
 
     const nutrimentsLabels = {
         calorieCount: 'Calories',
@@ -60,7 +58,7 @@ function AllNutriments({ userId }) {
         lipidCount: fatIcon,
     };
 
-    const nutrimentsArray = Object.entries(keyData);
+    const nutrimentsArray = Object.entries(keyData)
 
     return (
         <div className="nutriments-container">
@@ -74,7 +72,7 @@ function AllNutriments({ userId }) {
                 />
             ))}
         </div>
-    );
+    )
 }
 
-export default AllNutriments;
+export default AllNutriments

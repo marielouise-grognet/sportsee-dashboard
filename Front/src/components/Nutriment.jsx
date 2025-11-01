@@ -12,6 +12,6 @@ function Nutriment ( {type, value, icon, unity}) {
 
         </div>
     )
-};
+}
 
 export default Nutriment

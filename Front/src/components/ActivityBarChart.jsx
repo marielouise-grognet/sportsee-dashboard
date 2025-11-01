@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { getUserActivity } from "../services/apiService"; // <-- Service API
+import { useEffect, useState } from "react"
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts"
+import { getUserActivity } from "../services/apiService"
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
-    const kilogram = payload.find((p) => p.dataKey === "kilogram")?.value;
-    const calories = payload.find((p) => p.dataKey === "calories")?.value;
+    const kilogram = payload.find((p) => p.dataKey === "kilogram")?.value
+    const calories = payload.find((p) => p.dataKey === "calories")?.value
 
     return (
       <div
@@ -30,40 +22,40 @@ const CustomTooltip = ({ active, payload }) => {
         <p>{`${kilogram}kg`}</p>
         <p>{`${calories}kCal`}</p>
       </div>
-    );
+    )
   }
-  return null;
-};
+  return null
+}
 
 function ActivityBarChart({ userId }) {
-  const [userActivity, setUserActivity] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [userActivity, setUserActivity] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserActivity(userId);
-        setUserActivity(data.data);
+        const data = await getUserActivity(userId)
+        setUserActivity(data.data)
       } catch (err) {
-        console.error(err);
-        setError("Impossible de récupérer les données");
+        console.error(err)
+        setError("Impossible de récupérer les données")
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
-    fetchData();
-  }, [userId]);
+    fetchData()
+  }, [userId])
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
-  if (!userActivity?.sessions?.length) return <p>Aucune donnée disponible</p>;
+  if (loading) return <p>Chargement...</p>
+  if (error) return <p>{error}</p>
+  if (!userActivity?.sessions?.length) return <p>Aucune donnée disponible</p>
 
   const data = userActivity.sessions.map((s, i) => ({
     day: `${i + 1}`,
     kilogram: s.kilogram,
     calories: s.calories,
-  }));
+  }))
 
   return (
     <div className="daily-graph" style={{ position: "relative" }}>
@@ -148,7 +140,7 @@ function ActivityBarChart({ userId }) {
         </BarChart>
       </ResponsiveContainer>
     </div>
-  );
+  )
 }
 
-export default ActivityBarChart;
+export default ActivityBarChart

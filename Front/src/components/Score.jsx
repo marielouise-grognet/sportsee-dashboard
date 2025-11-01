@@ -1,6 +1,6 @@
-import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts';
-import { useEffect, useState } from "react";
-import { getUserMainData } from "../services/apiService"; 
+import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts'
+import { useEffect, useState } from "react"
+import { getUserMainData } from "../services/apiService"
 
 
 function Score({ userId }) {
@@ -11,26 +11,26 @@ function Score({ userId }) {
     useEffect(() => {
             const fetchData = async () => {
                 try {
-                    const data = await getUserMainData(userId);
-                    setUserScore(data.data);
+                    const data = await getUserMainData(userId)
+                    setUserScore(data.data)
                 } catch (err) {
-                    console.error(err);
-                    setError("Impossible de récupérer les données");
+                    console.error(err)
+                    setError("Impossible de récupérer les données")
                 } finally {
-                    setLoading(false);
+                    setLoading(false)
                 }
             };
-            fetchData();
-        }, [userId]);
+            fetchData()
+        }, [userId])
     
-        if (loading) return <p>Chargement...</p>;
-        if (error) return <p>{error}</p>;
-        if (!userScore) return <p>Aucune donnée disponible</p>;
+        if (loading) return <p>Chargement...</p>
+        if (error) return <p>{error}</p>
+        if (!userScore) return <p>Aucune donnée disponible</p>
 
 
 
 
-    const score = userScore.todayScore ?? userScore.score;
+    const score = userScore.todayScore ?? userScore.score
 
 
     const data = [
@@ -39,7 +39,7 @@ function Score({ userId }) {
             value: score * 100,
             fill: '#FF0000',
         },
-    ];
+    ]
 
 
 
@@ -106,8 +106,8 @@ function Score({ userId }) {
                 </p>
             </div>
         </div>
-    );
+    )
 }
                 
 
-export default Score;
+export default Score

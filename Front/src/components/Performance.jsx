@@ -1,6 +1,6 @@
-import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { useEffect, useState } from "react";
-import { getUserPerformance } from "../services/apiService";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts'
+import { useEffect, useState } from "react"
+import { getUserPerformance } from "../services/apiService"
 
 function Performance({ userId }) {
     const [userPerformance, setUserPerformance] = useState(null)
@@ -14,36 +14,36 @@ function Performance({ userId }) {
         strength: 'Force',
         speed: 'Vitesse',
         intensity: 'Intensité'
-    };
+    }
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getUserPerformance(userId);
-                setUserPerformance(data.data);
+                const data = await getUserPerformance(userId)
+                setUserPerformance(data.data)
             } catch (err) {
-                console.error(err);
-                setError("Impossible de récupérer les données");
+                console.error(err)
+                setError("Impossible de récupérer les données")
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
         };
-        fetchData();
-    }, [userId]);
+        fetchData()
+    }, [userId])
 
-    if (loading) return <p>Chargement...</p>;
-    if (error) return <p>{error}</p>;
-    if (!userPerformance?.data?.length) return <p>Aucune donnée disponible</p>;
+    if (loading) return <p>Chargement...</p>
+    if (error) return <p>{error}</p>
+    if (!userPerformance?.data?.length) return <p>Aucune donnée disponible</p>
 
 
 
     const data = userPerformance.data.map(item => ({
         subject: kindLabelsFR[userPerformance.kind[item.kind]],
         value: item.value,
-    }));
+    }))
 
-    const shiftedData = [data[data.length - 1], ...data.slice(0, -1)];
+    const shiftedData = [data[data.length - 1], ...data.slice(0, -1)]
 
 
 
@@ -70,7 +70,7 @@ function Performance({ userId }) {
                 </RadarChart>
             </ResponsiveContainer>
         </div>
-    );
+    )
 }
 
-export default Performance;
+export default Performance
