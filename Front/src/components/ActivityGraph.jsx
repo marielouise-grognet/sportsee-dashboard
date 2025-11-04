@@ -27,7 +27,7 @@ const CustomTooltip = ({ active, payload }) => {
   return null
 }
 
-function ActivityBarChart({ userId }) {
+function ActivityGraph({ userId }) {
   const [userActivity, setUserActivity] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -143,4 +143,4 @@ function ActivityBarChart({ userId }) {
   )
 }
 
-export default ActivityBarChart
+export default ActivityGraph

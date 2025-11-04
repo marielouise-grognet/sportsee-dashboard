@@ -2,7 +2,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 import { useEffect, useState } from "react"
 import { getUserAverageSessions } from "../services/apiService"
 
-function Duration({ userId }) {
+function DurationGraph({ userId }) {
     const [userDuration, setUserDuration] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -86,4 +86,4 @@ function Duration({ userId }) {
     )
 }
 
-export default Duration
+export default DurationGraph

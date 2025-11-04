@@ -2,7 +2,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { useEffect, useState } from "react"
 import { getUserPerformance } from "../services/apiService"
 
-function Performance({ userId }) {
+function PerformanceGraph({ userId }) {
     const [userPerformance, setUserPerformance] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -73,4 +73,4 @@ function Performance({ userId }) {
     )
 }
 
-export default Performance
+export default PerformanceGraph

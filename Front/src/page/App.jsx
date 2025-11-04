@@ -4,15 +4,15 @@ import yoga from '../assets/yoga.svg'
 import bike from '../assets/bike.svg'
 import swim from '../assets/swim.svg'
 import bodybuild from '../assets/bodybuild.svg'
-import ActivityBarChart from '../components/ActivityBarChart'
-import Duration from '../components/Duration'
-import Performance from '../components/Performance'
-import Score from '../components/Score'
+import ActivityGraph from '../components/ActivityGraph'
+import DurationGraph from '../components/DurationGraph'
+import PerformanceGraph from '../components/PerformanceGraph'
+import ScoreGraph from '../components/ScoreGraph'
 import { USER_MAIN_DATA } from '../../../Back/app/data'
 import AllNutriments from '../components/AllNutriments'
 
 function App() {
-    const { id } = useParams() // récupère l'id depuis l'URL
+    const { id } = useParams() 
     const userId = parseInt(id, 10)
     const user = USER_MAIN_DATA.find(u => u.id === userId)
     const firstname = user?.userInfos?.firstName || 'Utilisateur'
@@ -35,12 +35,12 @@ function App() {
                 </div>
                 <div className="user-datas">
                     <div className="graphs">
-                        <ActivityBarChart userId={userId} />
+                        <ActivityGraph userId={userId} />
 
                         <div className="other-graphs">
-                            <Duration userId={userId} />
-                            <Performance userId={userId} />
-                            <Score userId={userId} />
+                            <DurationGraph userId={userId} />
+                            <PerformanceGraph userId={userId} />
+                            <ScoreGraph userId={userId} />
                         </div>
                     </div>
                     <AllNutriments userId={userId} />

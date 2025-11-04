@@ -1,9 +1,9 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import App from "./page/App.jsx";
-import Header from "./components/Header.jsx";
-import { Navigate } from "react-router-dom";
+import { StrictMode } from "react"
+import { createRoot } from "react-dom/client"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import App from "./page/App.jsx"
+import Header from "./components/Header.jsx"
+import { Navigate } from "react-router-dom"
 import './sass/app.scss'
 
 createRoot(document.getElementById("root")).render(
@@ -17,4 +17,4 @@ createRoot(document.getElementById("root")).render(
       </Routes>
     </BrowserRouter>
   </StrictMode>
-);
+)

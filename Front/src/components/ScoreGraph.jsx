@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getUserMainData } from "../services/apiService"
 
 
-function Score({ userId }) {
+function ScoreGraph({ userId }) {
     const [userScore, setUserScore] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -110,4 +110,4 @@ function Score({ userId }) {
 }
                 
 
-export default Score
+export default ScoreGraph
