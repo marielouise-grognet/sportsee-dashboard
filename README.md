@@ -48,10 +48,11 @@ L'application est alors accessible à l'adresse : http://localhost:3000
 
 ### 3. Lancement
 Aller dans Back, puis dans Front et lancer 
-```npm run dev
+```bash
+npm run dev
 ```
 
-🧩 Structure du projet
+### Structure du projet
 src/
 │
 ├── components/       # Composants réutilisables (Header, Charts, etc.)
