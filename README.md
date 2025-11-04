@@ -40,5 +40,16 @@ git clone https://github.com/<ton-repo>/sportsee.git
 cd sportsee
 
 ### 2. Installer les dépendances
-```bash
 npm start
+L'application est alors accessible à l'adresse : http://localhost:3000
+
+🧩 Structure du projet
+src/
+│
+├── components/       # Composants réutilisables (Header, Charts, etc.)
+├── pages/            # Pages principales (Profile)
+├── services/         # Appels API (Fetch)
+├── mocks/            # Données mockées
+├── utils/            # Fonctions de formatage / adaptateurs de données
+├── styles/           # Feuilles de style globales
+└── App.js            # Point d’entrée principal
