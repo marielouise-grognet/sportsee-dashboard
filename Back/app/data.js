@@ -1,4 +1,4 @@
-// Back/app/data.js
+
 
 export const USER_MAIN_DATA = [
     {
