@@ -36,7 +36,7 @@ Cette page est développée avec **React** et affiche les données issues d’un
 
 ### 1. Cloner le dépôt
 ```bash
-git clone https://github.com/<ton-repo>/sportsee.git
+git clone [https://github.com/<ton-repo>/sportsee.git](https://github.com/marielouise-grognet/sportsee-dashboard.git)
 cd sportsee
 ```
 
