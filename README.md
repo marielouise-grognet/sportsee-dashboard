@@ -38,3 +38,7 @@ Cette page est développée avec **React** et affiche les données issues d’un
 ```bash
 git clone https://github.com/<ton-repo>/sportsee.git
 cd sportsee
+
+### 2. Installer les dépendances
+```bash
+npm start
