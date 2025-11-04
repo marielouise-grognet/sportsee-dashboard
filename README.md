@@ -42,8 +42,14 @@ cd sportsee
 
 ### 2. Installer les dépendances
 ```bash
-npm start```
+npm install
+```
 L'application est alors accessible à l'adresse : http://localhost:3000
+
+### 3. Lancement
+Aller dans Back, puis dans Front et lancer 
+```npm run dev
+```
 
 🧩 Structure du projet
 src/
