@@ -1,6 +1,6 @@
-# 🏋️‍♂️ SportSee – Profil Utilisateur
+# SportSee – Profil Utilisateur
 
-## 📘 Description du projet
+## Description du projet
 Ce projet est la nouvelle version de la **page profil utilisateur** de SportSee, une startup dédiée au coaching sportif.  
 L’objectif est de permettre à l’utilisateur de suivre son activité physique à travers plusieurs indicateurs :  
 - nombre de sessions réalisées,  
@@ -12,7 +12,7 @@ Cette page est développée avec **React** et affiche les données issues d’un
 
 ---
 
-## 🎯 Objectifs
+## Objectifs
 - Développer une interface React pour la page profil utilisateur.  
 - Intégrer des **graphiques interactifs** avec **Recharts**.  
 - Créer un **service dédié aux appels API** (en dehors des composants).  
@@ -22,17 +22,17 @@ Cette page est développée avec **React** et affiche les données issues d’un
 
 ---
 
-## 🧰 Technologies utilisées
-- ⚛️ **React**
-- 📊 **Recharts**
-- 🌐 **Fetch API** pour les requêtes HTTP
-- 💅 **CSS / SCSS**
-- 🧱 **ESLint** / **Prettier** pour le linting et la mise en forme
-- 🧩 **Node.js API** (backend fourni)
+## Technologies utilisées
+- **React**
+- **Recharts**
+- **Fetch API** pour les requêtes HTTP
+- **SCSS**
+- **ESLint** / **Prettier** pour le linting et la mise en forme
+- **Node.js API** (backend fourni)
 
 ---
 
-## 🚀 Installation et lancement
+## Installation et lancement
 
 ### 1. Cloner le dépôt
 ```bash
@@ -53,6 +53,7 @@ npm run dev
 ```
 
 ### Structure du projet
+```bash
 src/
 │
 ├── components/       # Composants réutilisables (Header, Charts, etc.)
@@ -62,3 +63,4 @@ src/
 ├── utils/            # Fonctions de formatage / adaptateurs de données
 ├── styles/           # Feuilles de style globales
 └── App.js            # Point d’entrée principal
+```
