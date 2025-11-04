@@ -1,12 +1,13 @@
-# SportSee – Profil Utilisateur
+# SportSee 
 
 ## Description du projet
 Ce projet est la nouvelle version de la **page profil utilisateur** de SportSee, une startup dédiée au coaching sportif.  
-L’objectif est de permettre à l’utilisateur de suivre son activité physique à travers plusieurs indicateurs :  
-- nombre de sessions réalisées,  
-- calories brûlées,  
-- objectifs atteints,  
-- progression quotidienne, etc.
+L’objectif est de permettre à l’utilisateur de suivre son activité physique à travers plusieurs indicateurs :   
+- calories brûlées,
+- poids,
+- durée moyenne des sessions,
+- performances
+- objectifs atteints, etc.
 
 Cette page est développée avec **React** et affiche les données issues d’une **API Node.js**.
 
@@ -27,7 +28,7 @@ Cette page est développée avec **React** et affiche les données issues d’un
 - **Recharts**
 - **Fetch API** pour les requêtes HTTP
 - **SCSS**
-- **ESLint** / **Prettier** pour le linting et la mise en forme
+- **ESLint** pour le linting et la mise en forme
 - **Node.js API** (backend fourni)
 
 ---
