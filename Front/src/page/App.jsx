@@ -10,7 +10,6 @@ import DurationGraph from '../components/DurationGraph'
 import PerformanceGraph from '../components/PerformanceGraph'
 import ScoreGraph from '../components/ScoreGraph'
 import AllNutriments from '../components/AllNutriments'
-
 import { getUserMainData } from '../services/apiService'
 
 function App() {
