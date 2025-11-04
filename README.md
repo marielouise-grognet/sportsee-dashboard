@@ -37,10 +37,11 @@ Cette page est développée avec **React** et affiche les données issues d’un
 ### 1. Cloner le dépôt
 ```bash
 git clone https://github.com/<ton-repo>/sportsee.git
-cd sportsee
+cd sportsee```
 
 ### 2. Installer les dépendances
-npm start
+```bash
+npm start```
 L'application est alors accessible à l'adresse : http://localhost:3000
 
 🧩 Structure du projet
