@@ -11,5 +11,4 @@ export class UserScore {
     get displayText() {
         return `${this.scorePercentage}% de votre objectif`
     }
-
 }
