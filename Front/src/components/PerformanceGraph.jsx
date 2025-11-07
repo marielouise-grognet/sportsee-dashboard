@@ -1,6 +1,6 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts'
 import { useEffect, useState } from "react"
-import { getUserPerformance } from "../services/apiService"
+import { getUserPerformance } from "../services/dataService"
 
 function PerformanceGraph({ userId }) {
     const [userPerformance, setUserPerformance] = useState(null)
@@ -20,8 +20,8 @@ function PerformanceGraph({ userId }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getUserPerformance(userId)
-                setUserPerformance(data.data)
+                const userData = await getUserPerformance(userId)
+                setUserPerformance(userData)
             } catch (err) {
                 console.error(err)
                 setError("Impossible de récupérer les données")
@@ -38,20 +38,20 @@ function PerformanceGraph({ userId }) {
 
 
 
-    const data = userPerformance.data.map(item => ({
+    const dataForDataKey = userPerformance.data.map(item => ({
         subject: kindLabelsFR[userPerformance.kind[item.kind]],
         value: item.value,
     }))
 
-    const shiftedData = [data[data.length - 1], ...data.slice(0, -1)]
+    const shiftedKeyData = [dataForDataKey[dataForDataKey.length - 1], ...dataForDataKey.slice(0, -1)]
 
 
 
     return (
         <div className="performance-graph">
-            <ResponsiveContainer>
+            <ResponsiveContainer style={{pointerEvents:'none'}}>
                 <RadarChart
-                    data={shiftedData}
+                    data={shiftedKeyData}
                     outerRadius="70%"
                     margin={{ top: 10, right: 20, bottom: 10, left: 20 }}
                 >

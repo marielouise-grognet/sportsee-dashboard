@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts"
-import { getUserActivity } from "../services/apiService"
+import { getUserActivity } from "../services/dataService"
 
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
@@ -35,8 +35,8 @@ function ActivityGraph({ userId }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getUserActivity(userId)
-        setUserActivity(data.data)
+        const userData = await getUserActivity(userId)
+        setUserActivity(userData)
       } catch (err) {
         console.error(err)
         setError("Impossible de récupérer les données")
@@ -51,14 +51,16 @@ function ActivityGraph({ userId }) {
   if (error) return <p>{error}</p>
   if (!userActivity?.sessions?.length) return <p>Aucune donnée disponible</p>
 
-  const data = userActivity.sessions.map((s, i) => ({
+  const dataForDataKey = userActivity.sessions.map((s, i) => ({
     day: `${i + 1}`,
     kilogram: s.kilogram,
     calories: s.calories,
   }))
 
   return (
-    <div className="daily-graph" style={{ position: "relative" }}>
+    <div className="daily-graph" 
+    onMouseDown={(e) => e.preventDefault()}
+    style={{ position: "relative" }}>
       <div
         style={{
           display: "flex",
@@ -99,7 +101,7 @@ function ActivityGraph({ userId }) {
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
-          data={data}
+          data={dataForDataKey}
           barSize={8}
           barGap={8}
           barCategoryGap="30%"

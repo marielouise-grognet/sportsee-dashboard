@@ -6,10 +6,8 @@ export const getUserMainData = async (userId) => {
 };
 
 export const getUserActivity = async (userId) => {
-    const response = await fetch(`http://localhost:3000/user/${userId}/activity`)
-    if (!response.ok) throw new Error("Erreur récupération activité")
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/user/${userId}/activity`)
+    return response.json()
 };
 
 
