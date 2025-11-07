@@ -2,20 +2,20 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { useEffect, useState } from "react"
 import { getUserPerformance } from "../services/dataService"
 
+
+const kindLabelsFR = {
+    cardio: 'Cardio',
+    energy: 'Énergie',
+    endurance: 'Endurance',
+    strength: 'Force',
+    speed: 'Vitesse',
+    intensity: 'Intensité'
+}
+
 function PerformanceGraph({ userId }) {
     const [userPerformance, setUserPerformance] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-
-    const kindLabelsFR = {
-        cardio: 'Cardio',
-        energy: 'Énergie',
-        endurance: 'Endurance',
-        strength: 'Force',
-        speed: 'Vitesse',
-        intensity: 'Intensité'
-    }
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,15 +28,13 @@ function PerformanceGraph({ userId }) {
             } finally {
                 setLoading(false)
             }
-        };
+        }
         fetchData()
     }, [userId])
 
     if (loading) return <p>Chargement...</p>
     if (error) return <p>{error}</p>
     if (!userPerformance?.data?.length) return <p>Aucune donnée disponible</p>
-
-
 
     const dataForDataKey = userPerformance.data.map(item => ({
         subject: kindLabelsFR[userPerformance.kind[item.kind]],
@@ -45,11 +43,10 @@ function PerformanceGraph({ userId }) {
 
     const shiftedKeyData = [dataForDataKey[dataForDataKey.length - 1], ...dataForDataKey.slice(0, -1)]
 
-
-
     return (
         <div className="performance-graph">
-            <ResponsiveContainer style={{pointerEvents:'none'}}>
+
+            <ResponsiveContainer style={{ pointerEvents: 'none' }}>
                 <RadarChart
                     data={shiftedKeyData}
                     outerRadius="70%"
@@ -69,6 +66,7 @@ function PerformanceGraph({ userId }) {
                     />
                 </RadarChart>
             </ResponsiveContainer>
+            
         </div>
     )
 }

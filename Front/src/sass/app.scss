@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 
-
 body {
   font-family: 'Roboto';
   min-width: 1024px;
@@ -9,7 +8,6 @@ body {
   margin: 0;
 
   .header {
-
 
     .header-menu {
       display: flex;
@@ -36,9 +34,7 @@ body {
   main {
     display: flex;
     max-width: 1440px;
-
-    left : 118px;
-
+    left: 118px;
 
     .navbar-side {
       position: relative;
@@ -50,8 +46,8 @@ body {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      left:0;
-      bottom:0;
+      left: 0;
+      bottom: 0;
 
       .side-menu {
         display: flex;
@@ -74,13 +70,11 @@ body {
         white-space: nowrap;
         position: absolute;
         top: 560px;
-
       }
     }
 
     .main-content {
       margin-left: 30px;
-
     }
 
     .user-datas {
@@ -90,11 +84,9 @@ body {
     .graphs {
       margin-right: 20px;
 
-
       .daily-graph {
         width: 100%;
         max-width: 750px;
-
         padding-top: 18px;
         background-color: #FBFBFB;
         border-radius: 5px;
@@ -105,17 +97,13 @@ body {
         display: flex;
         gap: 20px;
 
-
         .duration-graph {
           width: 200px;
           height: 200px;
           background-color: #FF0000;
           border-radius: 10px;
           position: relative;
-          
         }
-
-
 
         .performance-graph {
           width: 200px;
@@ -130,8 +118,6 @@ body {
           background-color: #FBFBFB;
           border-radius: 10px;
           position: relative;
-
-
         }
       }
     }
@@ -171,14 +157,8 @@ body {
             font-size: 12px;
             color: #74798C;
           }
-
-
-
         }
-
       }
-
-
     }
   }
 }

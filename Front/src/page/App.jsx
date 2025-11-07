@@ -10,19 +10,19 @@ import DurationGraph from '../components/DurationGraph'
 import PerformanceGraph from '../components/PerformanceGraph'
 import ScoreGraph from '../components/ScoreGraph'
 import AllNutriments from '../components/AllNutriments'
-import { getUserMainData } from '../services/apiService'
+import { getUserMainData } from '../services/dataService'
+
 
 function App() {
     const { id } = useParams()
     const userId = parseInt(id, 10)
-
     const [userMainData, setUserMainData] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const data = await getUserMainData(userId)
-                setUserMainData(data.data)
+                const userData = await getUserMainData(userId)
+                setUserMainData(userData)
             } catch (error) {
                 console.error("Erreur récupération user :", error)
             }
@@ -45,7 +45,6 @@ function App() {
                 </ul>
                 <p className="copyright">Copyright SportSee2020</p>
             </div>
-
             <section className='main-content'>
                 <div className="introduction">
                     <h1 className='Hello'>Bonjour <span style={{ color: "red" }}>{firstname}</span></h1>

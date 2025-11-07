@@ -6,7 +6,6 @@ import { getUserAverageSessions } from "../services/dataService"
 const CustomCursor = (props) => {
     const { points, width, height } = props
     const x = points?.[0]?.x || 0
-
     return (
         <rect
             x={x}
@@ -18,8 +17,6 @@ const CustomCursor = (props) => {
     )
 }
 
-
-// 🔹 2️⃣ Ton composant principal
 function DurationGraph({ userId }) {
     const [userDuration, setUserDuration] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -52,12 +49,12 @@ function DurationGraph({ userId }) {
 
     return (
         <div className="duration-graph"
-        onMouseDown={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
             style={{
                 position: 'relative',
                 backgroundColor: '#FF0000',
                 borderRadius: '10px',
-                overflow: 'hidden', // 👈 empêche le rect de déborder
+                overflow: 'hidden',
 
             }}>
             <h2 style={{
@@ -87,7 +84,6 @@ function DurationGraph({ userId }) {
                             <stop offset="100%" stopColor="#FF0000" stopOpacity={0.8} />
                         </linearGradient>
                     </defs>
-
                     <XAxis
                         dataKey="name"
                         stroke="none"
@@ -96,7 +92,6 @@ function DurationGraph({ userId }) {
                         width="258"
                         padding={{ left: 10, right: 10 }}
                     />
-
                     <Tooltip
                         content={({ active, payload }) => {
                             if (active && payload && payload.length) {
@@ -118,7 +113,6 @@ function DurationGraph({ userId }) {
                         }}
                         cursor={<CustomCursor />}
                     />
-
                     <Area
                         type="monotone"
                         dataKey="duration"
@@ -129,6 +123,7 @@ function DurationGraph({ userId }) {
                     />
                 </AreaChart>
             </ResponsiveContainer>
+            
         </div>
     )
 }

@@ -4,8 +4,7 @@ import carbIcon from '../assets/carbs-icon.svg'
 import proteinIcon from '../assets/protein-icon.svg'
 import caloriesIcon from '../assets/calories-icon.svg'
 import { useEffect, useState } from "react"
-import { getUserMainData } from "../services/apiService"
-
+import { getUserMainData } from "../services/dataService.js"
 
 
 function AllNutriments({ userId }) {
@@ -16,8 +15,8 @@ function AllNutriments({ userId }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getUserMainData(userId)
-                setUserMainData(data.data)
+                const userData = await getUserMainData(userId)
+                setUserMainData(userData)
             }
             catch (err) {
                 console.error(err)
@@ -29,11 +28,9 @@ function AllNutriments({ userId }) {
         fetchData()
     }, [userId])
 
-
     if (loading) return <p>Chargement...</p>
     if (error) return <p>{error}</p>
     if (!userMainData) return <p>Aucune donnée disponible</p>
-
 
     const keyData = userMainData.keyData
 
@@ -42,7 +39,7 @@ function AllNutriments({ userId }) {
         proteinCount: 'Protéines',
         carbohydrateCount: 'Glucides',
         lipidCount: 'Lipides',
-    };
+    }
 
     const nutrimentsUnities = {
         calorieCount: 'kCal',
@@ -56,7 +53,7 @@ function AllNutriments({ userId }) {
         proteinCount: proteinIcon,
         carbohydrateCount: carbIcon,
         lipidCount: fatIcon,
-    };
+    }
 
     const nutrimentsArray = Object.entries(keyData)
 

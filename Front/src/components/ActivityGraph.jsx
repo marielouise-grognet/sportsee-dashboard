@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts"
 import { getUserActivity } from "../services/dataService"
 
+
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const kilogram = payload.find((p) => p.dataKey === "kilogram")?.value
     const calories = payload.find((p) => p.dataKey === "calories")?.value
-
     return (
       <div
         style={{
@@ -43,7 +43,7 @@ function ActivityGraph({ userId }) {
       } finally {
         setLoading(false)
       }
-    };
+    }
     fetchData()
   }, [userId])
 
@@ -58,9 +58,9 @@ function ActivityGraph({ userId }) {
   }))
 
   return (
-    <div className="daily-graph" 
-    onMouseDown={(e) => e.preventDefault()}
-    style={{ position: "relative" }}>
+    <div className="daily-graph"
+      onMouseDown={(e) => e.preventDefault()}
+      style={{ position: "relative" }}>
       <div
         style={{
           display: "flex",
@@ -112,7 +112,6 @@ function ActivityGraph({ userId }) {
               <rect x="30" y="0" width="90%" height="100%" />
             </clipPath>
           </defs>
-
           <CartesianGrid
             horizontal={true}
             vertical={false}
@@ -122,7 +121,6 @@ function ActivityGraph({ userId }) {
             syncWithTicks={true}
             clipPath="url(#clip-grid)"
           />
-
           <XAxis dataKey="day" tickLine={false} stroke="#9B9EAC" tickMargin={16} />
           <YAxis
             yAxisId="right"
@@ -136,11 +134,11 @@ function ActivityGraph({ userId }) {
             tickMargin={24}
           />
           <Tooltip cursor={{ fill: "rgba(196, 196, 196, 0.5)" }} content={<CustomTooltip />} />
-
           <Bar yAxisId="right" dataKey="kilogram" name="Poids (kg)" fill="#282D30" radius={[3, 3, 0, 0]} />
           <Bar dataKey="calories" name="Calories brûlées (kCal)" fill="#E60000" radius={[3, 3, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
+      
     </div>
   )
 }

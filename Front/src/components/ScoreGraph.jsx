@@ -3,6 +3,7 @@ import { getUserMainData } from "../services/dataService"
 import { useEffect, useState } from "react"
 import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts'
 
+
 function ScoreGraph({ userId }) {
     const [userScore, setUserScore] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -41,7 +42,7 @@ function ScoreGraph({ userId }) {
                 Score
             </h2>
 
-            <ResponsiveContainer style={{pointerEvents:'none'}}>
+            <ResponsiveContainer style={{ pointerEvents: 'none' }}>
                 <RadialBarChart
                     cx="50%"
                     cy="50%"
@@ -55,7 +56,7 @@ function ScoreGraph({ userId }) {
                     <RadialBar dataKey="value" background clockWise cornerRadius={10} />
                 </RadialBarChart>
             </ResponsiveContainer>
-
+            
             <div style={{
                 position: 'absolute',
                 top: '50%',
