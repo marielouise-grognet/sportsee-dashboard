@@ -49,7 +49,7 @@ function App() {
             <section className='main-content'>
                 {error ? (
                     <p className="error-message">Impossible de récupérer les données...</p>
-                ) :  (
+                ) : (
                     <>
                         <div className="introduction">
                             <h1 className='Hello'>
